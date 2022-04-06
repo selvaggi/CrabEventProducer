@@ -8,7 +8,7 @@ from Configuration.Generator.Pythia8aMCatNLOSettings_cfi import *
 import os
 # https://cms-pdmv.cern.ch/mcm/public/restapi/requests/get_fragment/HIG-RunIISummer19UL17wmLHEGEN-00105/0
 
-gridpack_file='HPlusCharm_4FS_MuRFScaleDynX0p50_HToGG_M125_TuneCP5_13TeV_amcatnlo_pythia8_slc7_amd64_gcc820_CMSSW_10_6_19_tarball.tar.xz'
+gridpack_file='HPlusCharm_4FS_MuRFScaleDynX0p50_HToGG_M125_TuneCP5_13TeV_amcatnloFXFX_pythia8_slc7_amd64_gcc820_CMSSW_10_6_19_tarball.tar.xz'
 
 externalLHEProducer = cms.EDProducer('ExternalLHEProducer',
     args = cms.vstring(os.environ['PWD']+'/'+gridpack_file),
@@ -30,7 +30,18 @@ generator = cms.EDFilter('Pythia8HadronizerFilter',
         pythia8PSweightsSettingsBlock,
         pythia8aMCatNLOSettingsBlock,
         processParameters = cms.vstring(
-            'TimeShower:nPartonsInBorn = 0', # number of coloured particles (before resonance decays) in born matrix element
+            'JetMatching:setMad = off',
+            'JetMatching:scheme = 1',
+            'JetMatching:merge = on',
+            'JetMatching:jetAlgorithm = 2',
+            'JetMatching:etaJetMax = 999.',
+            'JetMatching:coneRadius = 1.',
+            'JetMatching:slowJetPower = 1',
+            'JetMatching:qCut = 30.', #this is the actual merging scale
+            'JetMatching:doFxFx = on',
+            'JetMatching:qCutME = 10.',#this must match the ptj cut in the lhe generation step
+            'JetMatching:nQmatch = 4', #4 corresponds to 4-flavour scheme (no matching of b-quarks), 5 for 5-flavour scheme
+            'JetMatching:nJetMax = 1', #number of partons in born matrix element for highest multiplicity
             'SLHA:useDecayTable = off',
             '25:m0 = 125',
             '25:onMode = off',

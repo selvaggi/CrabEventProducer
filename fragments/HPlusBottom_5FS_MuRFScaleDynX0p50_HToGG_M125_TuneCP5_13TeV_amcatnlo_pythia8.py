@@ -6,9 +6,10 @@ from Configuration.Generator.PSweightsPythia.PythiaPSweightsSettings_cfi import 
 from Configuration.Generator.Pythia8aMCatNLOSettings_cfi import *
 
 import os
+
 # https://cms-pdmv.cern.ch/mcm/public/restapi/requests/get_fragment/HIG-RunIISummer19UL17wmLHEGEN-00105/0
 
-gridpack_file='HPlusCharm_4FS_MuRFScaleDynX0p50_HToGG_M125_TuneCP5_13TeV_amcatnlo_pythia8_slc7_amd64_gcc820_CMSSW_10_6_19_tarball.tar.xz'
+gridpack_file='HPlusBottom_5FS_MuRFScaleDynX0p50_HToGG_M125_TuneCP5_13TeV_amcatnlo_pythia8_slc7_amd64_gcc820_CMSSW_10_6_19_tarball.tar.xz'
 
 externalLHEProducer = cms.EDProducer('ExternalLHEProducer',
     args = cms.vstring(os.environ['PWD']+'/'+gridpack_file),
