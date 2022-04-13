@@ -97,6 +97,8 @@ def main():
         primary_dataset_name = procname
         gridpack_webdir = gp_webdir
 
+        # somehow, max 100 characters allowed for request name 
+        request_name = request_name[:100]
 
         ## loop over config files 
         for filename in os.listdir(job_dir):
